@@ -1,11 +1,19 @@
-# My Personal Project
+# Crypto wallet Seed-phrase storage
 
-## A subtitle
+**Note**: see below for the `Crypto information` section for a general description of the crypto terminology used for this project and README. 
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+## Purpose (What it does):
+This application will store crypto seed-prase info and other sensitive information. Users can set their own security questions for each item saved, and will have to answer their security questions to retrieve back their info. The application gives many different methods for information retrieval such to minimize the effects of key-loggers, hidden cameras, screen-recorders, or audio-recorders tampering with this process. 
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+## Who will use it?
+I will. But generally, people who are looking for a reliable way to store their wallet seed-phrases can use it. This application comes with an added protection layer in that it never makes any external calls so information is never stored on an external database. 
+
+## Why is this project of interest to me?
+I own cryptocurrencies and I have crypto-wallets that have seed-phrases that need to be saved properly. 
+
+
+## Crypto information
+- **cryptocurrency**: A currency that uses blockchain technology. Examples include Bitcoin, Ethereum, Doge Coin, etc. 
+- **seed phrase**: a long password for a crypto wallet. Usually is 12 or 24 words long. An example: `cat tree box tissue umbrella ...`
+- **crypto wallet**: a 'bank account' that 'stores' the crypto currency
+- **crypto address**: the identification used by the crypto wallet to allow users to send cryptocurrencies to that wallet. 
