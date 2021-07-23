@@ -17,7 +17,6 @@ I own cryptocurrencies and I have crypto-wallets that have seed-phrases that nee
 - As a user, I want to be able to delete security questions
 - As a user, I want to be able to edit my security questions and answers
 - As a user, I want to be able to set how many security questions I have to get right to unlock my seed-phrase. 
-- As a user, I want to be able to skip security questions when I get stuck
 - As a user, I want to be able to delete seed-phrases from my collection once I unlock them
 - As a user, I want to be able to have the option to display my entire seed-phrase once I answer enough security questions correctly
 - As a user, I want to be able to have the option to display my seed phrase word-by-word once I answer enough security questions correctly
