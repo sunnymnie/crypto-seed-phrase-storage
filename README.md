@@ -13,9 +13,8 @@ I own cryptocurrencies and I have crypto-wallets that have seed-phrases that nee
 
 ## User Stories
 - As a user, I want to be able to add a seed-phrases to my collection
-- As a user, I want to be able to set one or more security question and answer for each seed-phrase in my collection
-- As a user, I want to be able to set general security questions that are enabled for all seed-phrases in my collection
-- As a user, I want to be able to remove non-general security questions for a seed-phrase
+- As a user, I want to be able to set security questions that are enabled for all seed-phrases in my collection
+- As a user, I want to be able to delete security questions
 - As a user, I want to be able to edit my security questions and answers
 - As a user, I want to be able to set how many security questions I have to get right to unlock my seed-phrase. 
 - As a user, I want to be able to skip security questions when I get stuck
