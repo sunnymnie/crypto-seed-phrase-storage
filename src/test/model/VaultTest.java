@@ -1,9 +1,7 @@
 package model;
 
 import org.junit.jupiter.api.BeforeEach;
-
-import java.util.ArrayList;
-import java.util.List;
+import ui.Vault;
 
 public class VaultTest {
     Vault v;

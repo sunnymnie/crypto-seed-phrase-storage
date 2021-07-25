@@ -16,7 +16,7 @@ public class SecurityQuestion {
 
     //EFFECTS: Returns true if answer is correct, false otherwise
     public boolean checkAnswer(String input) {
-        if (input.toLowerCase() == this.answer.toLowerCase()) {
+        if (input.toLowerCase().equals(this.answer.toLowerCase())) {
             return true;
         }
         return false;
