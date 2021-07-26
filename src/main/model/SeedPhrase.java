@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+
 /*
 Represents a seed-phrase with phrase and id
  */

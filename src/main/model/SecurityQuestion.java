@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Locale;
-
 /*
-Security question with question and answer
+Represents a security question with question and answer
  */
 public class SecurityQuestion {
     private String question;
@@ -18,8 +16,9 @@ public class SecurityQuestion {
     public boolean checkAnswer(String input) {
         if (input.toLowerCase().equals(this.answer.toLowerCase())) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     //MODIFIES: this
