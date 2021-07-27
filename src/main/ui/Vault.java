@@ -297,6 +297,7 @@ public class Vault {
         String choice = input.next().toLowerCase();
         if (choice.equals("q")) {
             System.out.println("Enter new question:\n");
+            input.nextLine();
             q.updateQuestion(input.nextLine());
         } else if (choice.equals("a")) {
             System.out.println("Enter new one word answer:\n");
