@@ -11,7 +11,15 @@ I will. But generally, people who are looking for a reliable way to store their 
 ## Why is this project of interest to me?
 I own cryptocurrencies and I have crypto-wallets that have seed-phrases that need to be saved properly. 
 
-## User Stories
+## User Stories (Part 2)
+- As a user, I want to be able to save my seed-phrases to file
+- As a user, I want to be able to be able to load my seed-phrases list from file 
+
+Optional user-stories (criteria says only two, so refer to above):
+- As a user, I want to be able to save my security-questions to file
+- As a user, I want to be able to be able to load my security-questions list from file 
+
+## User Stories (Part 1)
 - As a user, I want to be able to add a seed-phrases to my collection
 - As a user, I want to be able to set security questions that are enabled for all seed-phrases in my collection
 - As a user, I want to be able to delete security questions
