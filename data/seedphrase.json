@@ -1,0 +1,62 @@
+[
+    {
+        "security": -1,
+        "phrase": [
+            "melody",
+            "system",
+            "bleak",
+            "powder",
+            "cube",
+            "parade"
+        ],
+        "id": "main-bitcoin-wallet"
+    },
+    {
+        "security": 3,
+        "phrase": [
+            "strike",
+            "wheat",
+            "echo",
+            "walk",
+            "idea",
+            "drill"
+        ],
+        "id": "payments-dash-wallet"
+    },
+    {
+        "security": 2,
+        "phrase": [
+            "tooth",
+            "couple",
+            "roof",
+            "order",
+            "pull",
+            "wealth"
+        ],
+        "id": "metamask-ethereum-wallet"
+    },
+    {
+        "security": -1,
+        "phrase": [
+            "join",
+            "parade",
+            "lizard",
+            "follow",
+            "position",
+            "victory"
+        ],
+        "id": "exodus-investment-wallet"
+    },
+    {
+        "security": 0,
+        "phrase": [
+            "december",
+            "burden",
+            "quality",
+            "tired",
+            "virtual",
+            "scene"
+        ],
+        "id": "meme-crypto-wallet-no-security"
+    }
+]

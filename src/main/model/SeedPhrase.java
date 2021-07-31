@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.List;
 
 /*
 Represents a seed-phrase with phrase and id
  */
 
-public class SeedPhrase {
+public class SeedPhrase implements Writable {
     private List<String> phrase;
     private String id;
     private int security;
@@ -51,6 +55,24 @@ public class SeedPhrase {
         return this.id;
     }
 
+    //EFFECTS: returns seed-phrase as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", this.id);
+        json.put("security", this.security);
+        json.put("phrase", phrasesToJson());
+        return json;
+    }
 
+    // EFFECTS: returns words in phrase as a JSON array
+    private JSONArray phrasesToJson() {
+        JSONArray jsonArray = new JSONArray();
 
+        for (String s : phrase) {
+            jsonArray.put(s);
+        }
+
+        return jsonArray;
+    }
 }

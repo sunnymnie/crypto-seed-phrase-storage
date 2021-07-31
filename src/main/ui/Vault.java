@@ -3,16 +3,24 @@ package ui;
 import model.SecurityQuestion;
 import model.SeedPhrase;
 import model.Verification;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /*
 Crypto seed-phrase storage application
  */
 public class Vault {
+    private static final String JSON_STORE_SEEDPHRASE = "./data/seedphrase.json";
+    private static final String JSON_STORE_VERIFICATION = "./data/verification.json";
     private ArrayList<SeedPhrase> sp;
     private Verification verification;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: Create a new vault with no seed-phrases or security questions
     public Vault() {
@@ -27,6 +35,7 @@ public class Vault {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
+                saveSeedPhrasesAndVerification();
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -39,9 +48,11 @@ public class Vault {
     // MODIFIES: this
     // EFFECTS: initializes seed-phrases and security questions
     private void init() {
-        sp = new ArrayList();
-        verification = new Verification();
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE_SEEDPHRASE, JSON_STORE_VERIFICATION);
+        jsonReader = new JsonReader(JSON_STORE_SEEDPHRASE, JSON_STORE_VERIFICATION);
+        loadSeedPhrases();
+        loadVerification();
     }
 
     // EFFECTS: displays menu of options to user
@@ -50,7 +61,7 @@ public class Vault {
         System.out.println("\tv -> view/edit seed-phrases");
         System.out.println("\ta -> add a seed-phrase");
         System.out.println("\ts -> add/edit security questions");
-        System.out.println("\tq -> quit");
+        System.out.println("\tq -> save and quit");
     }
 
     // MODIFIES: this
@@ -64,6 +75,38 @@ public class Vault {
             editSecurityQuestions();
         } else {
             System.out.println("Selection not valid...");
+        }
+    }
+
+    // EFFECTS: saves the seed-phrases and verification to file
+    private void saveSeedPhrasesAndVerification() {
+        try {
+            jsonWriter.open();
+            jsonWriter.writeSeedPhrases(sp);
+            jsonWriter.writeVerification(verification);
+            jsonWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads seed-phrases from file
+    private void loadSeedPhrases() {
+        try {
+            this.sp = jsonReader.readSeedPhrases();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_SEEDPHRASE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads verification from file
+    private void loadVerification() {
+        try {
+            this.verification = jsonReader.readVerification();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_VERIFICATION);
         }
     }
 

@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
 Represents a security question with question and answer
  */
-public class SecurityQuestion {
+public class SecurityQuestion implements Writable {
     private String question;
     private String answer;
 
@@ -36,5 +39,14 @@ public class SecurityQuestion {
     //EFFECTS: Returns question
     public String getQuestion() {
         return this.question;
+    }
+
+    //EFFECTS: Returns security question as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("question", this.question);
+        json.put("answer", this.answer);
+        return json;
     }
 }

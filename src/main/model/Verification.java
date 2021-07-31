@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,5 +44,14 @@ public class Verification {
     //EFFECTS: shuffles security questions
     public void shuffle() {
         Collections.shuffle(sq);
+    }
+
+    //EFFECTS: returns verification as a JSON object
+    public JSONArray toJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+        for (SecurityQuestion s : sq) {
+            jsonArray.put(s.toJson());
+        }
+        return jsonArray;
     }
 }

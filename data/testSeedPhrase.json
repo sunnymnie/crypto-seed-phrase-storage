@@ -1,0 +1,26 @@
+[
+    {
+        "security": -1,
+        "phrase": [
+            "time",
+            "cost",
+            "syllabus",
+            "iron",
+            "find",
+            "sync"
+        ],
+        "id": "bitcoin-wallet"
+    },
+    {
+        "security": 1,
+        "phrase": [
+            "federal",
+            "simple",
+            "mass",
+            "endorse",
+            "miracle",
+            "present"
+        ],
+        "id": "eth-wallet"
+    }
+]
