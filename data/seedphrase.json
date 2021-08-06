@@ -58,5 +58,15 @@
             "scene"
         ],
         "id": "meme-crypto-wallet-no-security"
+    },
+    {
+        "security": -1,
+        "phrase": ["work"],
+        "id": "test"
+    },
+    {
+        "security": 0,
+        "phrase": ["asdf"],
+        "id": "test-two"
     }
 ]

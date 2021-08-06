@@ -2,6 +2,11 @@ package ui;
 
 public class Main {
     public static void main(String[] args) {
-        new Vault();
+//        new Vault();
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new VaultMenu().createAndShowGUI();
+            }
+        });
     }
 }
