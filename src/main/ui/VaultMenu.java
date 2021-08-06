@@ -25,61 +25,7 @@ public class VaultMenu extends WindowAdapter
         maxY = screenSize.height - 50;
     }
 
-    // Create the window-creation controls that go in the main window.
-//    private JComponent createOptionControls() {
-//        JLabel label1 = new JLabel("Decoration options for subsequently created frames:");
-//        ButtonGroup bg1 = new ButtonGroup();
-//        JLabel label2 = new JLabel("Icon options:");
-//        ButtonGroup bg2 = new ButtonGroup();
-//
-//        //Create the buttons
-//        JRadioButton rb1 = new JRadioButton();
-//        rb1.setText("Look and feel decorated");
-//        rb1.setActionCommand("test");
-//        rb1.addActionListener(this);
-//        rb1.setSelected(true);
-//        bg1.add(rb1);
-//        //
-//        JRadioButton rb2 = new JRadioButton();
-//        rb2.setText("Window system decorated");
-//        rb2.setActionCommand("test");
-//        rb2.addActionListener(this);
-//        bg1.add(rb2);
-//
-//
-//        //Add everything to a container.
-//        Box box = Box.createVerticalBox();
-//        box.add(label1);
-//        box.add(Box.createVerticalStrut(5)); //spacer
-//        box.add(rb1);
-//        box.add(rb2);
-//
-//        //Add some breathing room.
-//        box.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-//
-//        return box;
-//    }
 
-    //Create the button that goes in the main window.
-//    protected JComponent createButtonPane() {
-//        JButton button = new JButton("View and edit seed-phrases");
-//        button.setActionCommand("cw");
-//        button.addActionListener(this);
-////        defaultButton = button; //Used later to make this the frame's default button.
-//
-//        JButton buttonSQ = new JButton("Edit security questions");
-//        buttonSQ.setActionCommand("cw");
-//        buttonSQ.addActionListener(this);
-////        defaultButton = button; //Used later to make this the frame's default button.
-//
-//        //Center the button in a panel with some space around it.
-//        JPanel pane = new JPanel(); //use default FlowLayout
-//        pane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//        pane.add(button);
-//        pane.add(buttonSQ);
-//
-//        return pane;
-//    }
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -89,19 +35,19 @@ public class VaultMenu extends WindowAdapter
     public static void createAndShowGUI() {
 
         //Instantiate the controlling class.
-        Frame frame = new MenuFrame("DEMO PROJECT");
+        Frame frame = new MenuFrame("Crypto Seed-Phrase Vault");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
         VaultMenu demo = new VaultMenu();
 
         //Add components to it.
-        Container contentPane = frame.getContentPane();
+//        Container contentPane = frame.getContentPane();
 //        contentPane.add(demo.createOptionControls(),
 //                BorderLayout.CENTER);
 //        contentPane.add(demo.createButtonPane(),
 //                BorderLayout.PAGE_END);
-        frame.getRootPane().setDefaultButton(defaultButton);
+//        frame.getRootPane().setDefaultButton(defaultButton);
 
         //Display the window.
         frame.pack();
@@ -126,11 +72,6 @@ public class VaultMenu extends WindowAdapter
         } else {
             lastLocation = frame.getLocation();
         }
-
-        //Calling setIconImage sets the icon displayed when the window
-        //is minimized.  Most window systems (or look and feels, if
-        //decorations are provided by the look and feel) also use this
-        //icon in the window decorations.
 
         //Show window.
         frame.setSize(new Dimension(170, 100));
