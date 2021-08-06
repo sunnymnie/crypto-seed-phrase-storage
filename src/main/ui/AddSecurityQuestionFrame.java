@@ -4,37 +4,38 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-/*
-CITATION: Based on ListDemoProject from Oracle Swing demo files
- */
-public class VerificationFrame extends Frame {
-
+public class AddSecurityQuestionFrame extends Frame {
+    private JTextField questionField;
     private JTextField answerField;
-    private JLabel question;
 
-    public VerificationFrame(String title) {
+    public AddSecurityQuestionFrame(String title) {
         super(title);
 
-        addQuestion();
+        addForum();
         addCloseButton();
     }
 
     //MODIFIES: this
     //EFFECTS: Adds question and text fields
-    private void addQuestion() {
-        question = new JLabel("What is asdf?");
+    private void addForum() {
+        JLabel questionLabel = new JLabel("Enter name of seed-phrase (ie: Bitcoin Wallet)");
+        questionField = new JTextField(10);
+        questionField.addActionListener(this);
 
+        JLabel answerLabel = new JLabel("Enter seed-phrase separated with spaces");
         answerField = new JTextField(10);
         answerField.addActionListener(this);
 
-
         JButton submitButton = new JButton("Submit");
+//        HireListener hireListener = new HireListener(submitButton);
         submitButton.setActionCommand("submit");
         submitButton.addActionListener(this);
 
         Box box = Box.createVerticalBox();
 
-        box.add(question);
+        box.add(questionLabel);
+        box.add(questionField);
+        box.add(answerLabel);
         box.add(answerField);
         box.add(submitButton);
         box.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -44,13 +45,14 @@ public class VerificationFrame extends Frame {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String question = questionField.getText();
         String answer = answerField.getText();
         String command = e.getActionCommand();
 
         //Handle the New window button.
         if ("submit".equals(command)) {
+            System.out.println(question);
             System.out.println(answer);
-            question.setText(answer);
 
         } else if ("asp".equals(command)) {
             //pass
@@ -63,6 +65,4 @@ public class VerificationFrame extends Frame {
             dispose();
         }
     }
-
-
 }
