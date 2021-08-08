@@ -6,30 +6,20 @@ import java.awt.event.ActionEvent;
 
 public class MenuFrame extends Frame {
 
+    private static final String VSP = "view_seed_phrases";
+    private static final String ASP = "add_seed_phrase";
+    private static final String VSQ = "view_security_questions";
+    private static final String ASQ = "add_security_question";
 
-    private String vsp;
-    private String asp;
-    private String vsq;
-    private String asq;
 
     public MenuFrame(String title) {
         super(title);
-
-        setConstants();
 
         addMenuButtons();
 
         addCloseButton();
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets constants for action commands
-    private void setConstants() {
-        vsp = "view_seed_phrases";
-        asp = "add_seed_phrase";
-        vsq = "view_security_questions";
-        asq = "add_security_question";
-    }
 
     //EFFECTS: Creates a new JButton with name and action command and returns it
     private JButton addButton(String name, String actionCommand) {
@@ -45,10 +35,10 @@ public class MenuFrame extends Frame {
         JLabel labelSP = new JLabel("Seed-phrases");
         JLabel labelSQ = new JLabel("Security questions");
 
-        JButton buttonSP = addButton("View seed-phrases", vsp);
-        JButton buttonASP = addButton("Add seed-phrase", asp);
-        JButton buttonSQ = addButton("View security-questions", vsq);
-        JButton buttonASQ = addButton("Add security-question", asq);
+        JButton buttonSP = addButton("View seed-phrases", VSP);
+        JButton buttonASP = addButton("Add seed-phrase", ASP);
+        JButton buttonSQ = addButton("View security-questions", VSQ);
+        JButton buttonASQ = addButton("Add security-question", ASQ);
 
         //Add everything to a container.
         Box box = Box.createVerticalBox();
@@ -78,14 +68,14 @@ public class MenuFrame extends Frame {
         String command = e.getActionCommand();
 
         //Handle the New window button.
-        if (vsp.equals(command)) {
-            menu.showNewWindow();
+        if (VSP.equals(command)) {
+            menu.showSeedPhrasesWindow();
 
-        } else if (asp.equals(command)) {
+        } else if (ASP.equals(command)) {
+            menu.showNewWindow();
+        } else if (VSQ.equals(command)) {
             //pass
-        } else if (vsq.equals(command)) {
-            //pass
-        } else if (asq.equals(command)) {
+        } else if (ASQ.equals(command)) {
             //pass
         } else {
             setVisible(false);

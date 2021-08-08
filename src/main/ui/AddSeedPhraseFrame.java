@@ -13,7 +13,7 @@ public class AddSeedPhraseFrame extends Frame {
         super(title);
 
         addForum();
-        addCloseButton();
+//        addCloseButton();
     }
 
     //MODIFIES: this
