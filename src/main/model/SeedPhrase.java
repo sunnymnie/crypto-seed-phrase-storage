@@ -56,6 +56,7 @@ public class SeedPhrase implements Writable {
         return this.id;
     }
 
+    //EFFECTS: returns true if equal
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -68,6 +69,7 @@ public class SeedPhrase implements Writable {
         return security == that.security && Objects.equals(phrase, that.phrase) && Objects.equals(id, that.id);
     }
 
+    //EFFECTS: returns hashcode
     @Override
     public int hashCode() {
         return Objects.hash(phrase, id, security);

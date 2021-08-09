@@ -8,6 +8,7 @@ import java.util.Objects;
 /*
 Represents a security question with question and answer
  */
+
 public class SecurityQuestion implements Writable {
     private String question;
     private String answer;
@@ -19,7 +20,7 @@ public class SecurityQuestion implements Writable {
 
     //EFFECTS: Returns true if answer is correct, false otherwise
     public boolean checkAnswer(String input) {
-        if (input.toLowerCase().equals(this.answer.toLowerCase())) {
+        if (input.equalsIgnoreCase(this.answer)) {
             return true;
         } else {
             return false;
@@ -57,6 +58,7 @@ public class SecurityQuestion implements Writable {
         return json;
     }
 
+    //EFFECTS: returns true if equal
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,6 +71,7 @@ public class SecurityQuestion implements Writable {
         return Objects.equals(question, that.question) && Objects.equals(answer, that.answer);
     }
 
+    //EFFECTS: returns hashcode
     @Override
     public int hashCode() {
         return Objects.hash(question, answer);
