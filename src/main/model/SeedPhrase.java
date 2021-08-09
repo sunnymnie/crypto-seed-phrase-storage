@@ -58,8 +58,12 @@ public class SeedPhrase implements Writable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SeedPhrase that = (SeedPhrase) o;
         return security == that.security && Objects.equals(phrase, that.phrase) && Objects.equals(id, that.id);
     }

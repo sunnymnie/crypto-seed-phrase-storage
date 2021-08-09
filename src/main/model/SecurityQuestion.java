@@ -59,8 +59,12 @@ public class SecurityQuestion implements Writable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SecurityQuestion that = (SecurityQuestion) o;
         return Objects.equals(question, that.question) && Objects.equals(answer, that.answer);
     }
