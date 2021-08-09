@@ -23,6 +23,7 @@ public class VerificationFrame extends Frame {
 
     private JTextField answerField;
     private JLabel question;
+    private JButton submitButton;
 
     public VerificationFrame(String title, SeedPhrase sp, Verification verification) {
         super(title);
@@ -83,7 +84,7 @@ public class VerificationFrame extends Frame {
         answerField.addActionListener(this);
 
 
-        JButton submitButton = new JButton("Submit");
+        submitButton = new JButton("Submit");
 
         submitButton.setActionCommand("submit");
         submitButton.addActionListener(this);
@@ -116,27 +117,25 @@ public class VerificationFrame extends Frame {
                 currentQuestion = this.verification.get(nextQuestion);
                 question.setText(currentQuestion.getQuestion());
                 this.nextQuestion += 1;
+                answerField.requestFocusInWindow();
             } else {
                 if (allCorrect) {
 //                    question.setText("Congrats!");
                     nextFrame();
                 } else {
                     question.setText("One or more of your answers are incorrect!");
+                    submitButton.setText("Close");
+                    submitButton.setActionCommand("close");
+                    playErrorSound();
                 }
             }
-            answerField.requestFocusInWindow();
 
 //            System.out.println(answer);
 //            question.setText(answer);
 
-        } else if ("asp".equals(command)) {
-            //pass
-        } else if ("vsq".equals(command)) {
-            //pass
-        } else if ("asq".equals(command)) {
-            //pass
-        } else {
-            //d
+        } else if ("close".equals(command)) {
+            setVisible(false);
+            dispose();
         }
     }
 
@@ -144,8 +143,10 @@ public class VerificationFrame extends Frame {
     private void nextFrame() {
         if (sp != null) {
             menu.showSeedPhrase(sp);
+            playVaultOpenSound();
         } else {
             menu.showSecurityQuestionsFrame();
+            playVaultOpenSound();
         }
         setVisible(false);
         dispose();

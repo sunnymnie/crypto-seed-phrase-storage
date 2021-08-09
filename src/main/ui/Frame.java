@@ -1,9 +1,15 @@
 package ui;
 
+
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.io.File;
+
+import  java.io.*;
 
 public abstract class Frame extends JFrame implements ActionListener {
 
@@ -15,7 +21,6 @@ public abstract class Frame extends JFrame implements ActionListener {
         super(title);
         menu = new VaultMenu();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//        setUndecorated(true);
 
 
         //Place the button near the bottom of the window.
@@ -36,6 +41,36 @@ public abstract class Frame extends JFrame implements ActionListener {
         button.setAlignmentX(Component.CENTER_ALIGNMENT); //horizontally centered
         contentPane.add(Box.createVerticalStrut(5)); //spacer
     }
+
+    //EFFECTS: plays vault opening sound
+    public void playVaultOpenSound() {
+        playSound("vault-opening.wav");
+    }
+
+    //EFFECTS: plays verification failing sound
+    public void playErrorSound() {
+        playSound("error.wav");
+    }
+
+    //EFFECTS: plays sound given string file name
+    public void playSound(String path) {
+        /*
+        CITATION: based off of: https://stackoverflow.com/a/37693420
+         */
+        File f = new File("data/sounds/" + path);
+        AudioInputStream audioIn = null;
+        try {
+            audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //Make the button do the same thing as the default close operation
     //(DISPOSE_ON_CLOSE).
