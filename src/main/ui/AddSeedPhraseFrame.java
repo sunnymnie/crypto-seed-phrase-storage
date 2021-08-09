@@ -5,28 +5,20 @@ import model.SeedPhrase;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
+import java.util.List;
 
 public class AddSeedPhraseFrame extends Frame {
     private JTextField idField;
     private JTextField seedPhraseField;
     private JTextField securityField;
-    private SeedPhrase sp;
 
     public AddSeedPhraseFrame(String title) {
         super(title);
-
         addForum();
 //        addCloseButton();
     }
 
-    public AddSeedPhraseFrame(String title, SeedPhrase sp) {
-        super(title);
-
-        this.sp = sp;
-
-        addEditForum();
-//        addCloseButton();
-    }
 
     //MODIFIES: this
     //EFFECTS: Adds question and text fields
@@ -62,35 +54,6 @@ public class AddSeedPhraseFrame extends Frame {
 
     }
 
-    //MODIFIES: this
-    //EFFECTS: Adds question and text fields
-    private void addEditForum() {
-        JLabel questionID = new JLabel("Seed-phrase name (ie: Bitcoin Wallet)");
-        idField = new JTextField(10);
-        idField.setText(sp.getId());
-        idField.addActionListener(this);
-
-        JLabel questionSecurity = new JLabel("Seed-phrase security");
-        securityField = new JTextField(10);
-        securityField.setText(Integer.toString(sp.getSecurity()));
-        securityField.addActionListener(this);
-
-        JButton submitButton = new JButton("Save");
-//        HireListener hireListener = new HireListener(submitButton);
-        submitButton.setActionCommand("save");
-        submitButton.addActionListener(this);
-
-        Box box = Box.createVerticalBox();
-
-        box.add(questionID);
-        box.add(idField);
-        box.add(questionSecurity);
-        box.add(securityField);
-        box.add(submitButton);
-        box.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        contentPane.add(box, BorderLayout.CENTER);
-
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -105,16 +68,20 @@ public class AddSeedPhraseFrame extends Frame {
             System.out.println(seedPhrase);
             System.out.println(security);
 
+            List<String> phrase = Arrays.asList(seedPhrase.split("\\s*,\\s*"));
+
+            menu.sp.add(new SeedPhrase(phrase, id, Integer.parseInt(security)));
+            menu.saveAndUpdate();
+
         } else if ("asp".equals(command)) {
             //pass
         } else if ("vsq".equals(command)) {
             //pass
         } else if ("asq".equals(command)) {
             //pass
-        } else {
-            setVisible(false);
-            dispose();
         }
+        setVisible(false);
+        dispose();
     }
 
 }

@@ -41,15 +41,21 @@ public class VerificationFrame extends Frame {
     //MODIFIES: this
     //EFFECTS: inits fields
     private void init(Verification verification) {
-        this.verification = menu.verification; ///!!!!!!!!
-        menu.test();
+        this.verification = menu.verification;
+        if (verification.length() > 0) {
+            menu.test();
 
-        getNumQuestions();
-        this.nextQuestion = 1;
-        this.allCorrect = true;
-        currentQuestion = verification.get(0);
+            getNumQuestions();
+            this.nextQuestion = 1;
+            this.allCorrect = true;
+            currentQuestion = verification.get(0);
 
-        addQuestion();
+            addQuestion();
+
+            menu.positionFrame(this, 500, 100);
+        } else {
+            nextFrame();
+        }
     }
 
     //REQUIRES: seed-phrase security to be one or greater
@@ -137,7 +143,7 @@ public class VerificationFrame extends Frame {
     //EFFECTS: calls menu and opens next frame and disposes current frame
     private void nextFrame() {
         if (sp != null) {
-            //pass
+            menu.showSeedPhrase(sp);
         } else {
             menu.showSecurityQuestionsFrame();
         }

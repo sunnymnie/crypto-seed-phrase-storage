@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
 Represents a seed-phrase with phrase and id
@@ -53,6 +54,19 @@ public class SeedPhrase implements Writable {
     //EFFECTS: returns name of seed-phrase
     public String getId() {
         return this.id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SeedPhrase that = (SeedPhrase) o;
+        return security == that.security && Objects.equals(phrase, that.phrase) && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phrase, id, security);
     }
 
     //EFFECTS: returns seed-phrase as a JSON object

@@ -22,7 +22,7 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
 
     private static final String JSON_STORE_SEEDPHRASE = "./data/seedphrase.json";
     private static final String JSON_STORE_VERIFICATION = "./data/verification.json";
-    private ArrayList<SeedPhrase> sp;
+    protected ArrayList<SeedPhrase> sp;
     protected Verification verification;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -129,14 +129,16 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
     //Create a new Verification Frame object for seed-phrase and show it.
     public void showVerificationWindow(SeedPhrase sp) {
         Frame frame = new VerificationFrame(sp.getId(), sp, verification);
-
-        positionFrame(frame, 500, 100);
     }
 
     //Create a new Verification Frame object for security-questions and show it.
     public void showVerificationWindow() {
         Frame frame = new VerificationFrame("Security Questions", verification);
-        positionFrame(frame, 500, 100);
+    }
+
+    public void showSeedPhrase(SeedPhrase sp) {
+        Frame frame = new SeedPhraseSelectFrame(sp.getId(), sp);
+        positionFrame(frame, 350, 150);
     }
 
     public void test() {
@@ -158,6 +160,11 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
         return this.verification;
     }
 
+    public ArrayList<SeedPhrase> getLatestSeedPhrase() {
+        loadSeedPhrases();
+        return this.sp;
+    }
+
     public void addSecurityQuestion(String question, String answer) {
         this.verification.addSecurityQuestion(question, answer);
     }
@@ -168,13 +175,14 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
 
     //Create a new Verification Frame object for seed-phrase and show it.
     public void showSeedPhrasesWindow() {
+        init();
         Frame frame = new SeedPhrasesFrame("Seed-Phrases", sp);
 
         positionFrame(frame, 300, 300);
     }
 
     //EFFECTS: positions frame with width and height
-    public void positionFrame(Frame frame, int width, int height) {
+    public void positionFrame(JFrame frame, int width, int height) {
         //Set window location.
         if (lastLocation != null) {
             //Move the window over and down 40 pixels.

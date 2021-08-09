@@ -15,7 +15,7 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
     private JList list;
     private DefaultListModel listModel;
 
-    private JButton edit;
+    private JButton view;
     private JButton add;
 
     private ArrayList<SeedPhrase> sp;
@@ -36,9 +36,9 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
 
-        edit = new JButton("Select");
-        edit.setActionCommand("Select");
-        edit.addActionListener(this);
+        view = new JButton("view or delete");
+        view.setActionCommand("view");
+        view.addActionListener(this);
 
         add = new JButton("add");
         add.setActionCommand("add_seed_phrase");
@@ -51,7 +51,7 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         buttonPane.add(Box.createHorizontalStrut(5));
         buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
         buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.add(edit);
+        buttonPane.add(view);
         buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
         add(listScrollPane, BorderLayout.CENTER);
@@ -67,16 +67,33 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         }
     }
 
+    public void updateList() {
+        menu.sp = menu.getLatestSeedPhrase();
+        listModel.clear();
+        addSeedPhrases();
+    }
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
     }
 
     public void actionPerformed(ActionEvent e) {
-        //This method can be called only if
-        //there's a valid selection
-        //so go ahead and remove whatever's selected.
+        String command = e.getActionCommand();
         int index = list.getSelectedIndex();
+
+        if ("add_seed_phrase".equals(command)) {
+            Frame frame = new AddSeedPhraseFrame("New Seed-Phrase");
+            menu.positionFrame(frame, 300, 300);
+        } else if ("view".equals(command)) {
+            SeedPhrase seed = sp.get(index);
+
+            if ((seed.getSecurity() >= 1 || seed.getSecurity() == -1)) {
+                menu.showVerificationWindow(seed);
+            } else {
+                menu.showSeedPhrase(seed);
+            }
+        }
 //        listModel.remove(index);
 
 //        int size = listModel.getSize();
@@ -94,7 +111,7 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
 //            list.ensureIndexIsVisible(index);
 
 //        System.out.println(sp.get(index).getId());
-        menu.showVerificationWindow(sp.get(index));
+
         setVisible(false);
         dispose();
 
