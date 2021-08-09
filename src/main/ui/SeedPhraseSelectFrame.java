@@ -6,9 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/*
+represents a frame to select viewing options and delete options for a seed-phrase
+ */
+
 public class SeedPhraseSelectFrame extends Frame {
 
-    SeedPhrase sp;
+    private SeedPhrase sp;
 
     public SeedPhraseSelectFrame(String title, SeedPhrase sp) {
         super(title);
@@ -34,6 +38,8 @@ public class SeedPhraseSelectFrame extends Frame {
         contentPane.add(box, BorderLayout.CENTER);
     }
 
+    //MODIFIES: this, menu
+    //EFFECTS: Processes action to view or delete seed-phrase
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -41,8 +47,6 @@ public class SeedPhraseSelectFrame extends Frame {
         if ("view_separate".equals(command)) {
             Frame frame = new ShowSeedPhraseIndividuallyFrame(sp.getId(), sp);
             menu.positionFrame(frame, 200, 100);
-
-
         } else if ("view_once".equals(command)) {
             JFrame frame = new JFrame();
             String phrase = "";

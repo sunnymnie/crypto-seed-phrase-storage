@@ -1,12 +1,14 @@
 package ui;
 
 import model.SecurityQuestion;
-import model.Verification;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/*
+A frame to add a new security question or edit an existing security question
+ */
 public class AddSecurityQuestionFrame extends Frame {
     private JTextField questionField;
     private JTextField answerField;
@@ -66,11 +68,12 @@ public class AddSecurityQuestionFrame extends Frame {
         this.answerField.setText(sq.getAnswer());
     }
 
+    //MODIFIES: this, sqf, menu
+    //EFFECTS: Processes action
     @Override
     public void actionPerformed(ActionEvent e) {
         String question = questionField.getText();
         String answer = answerField.getText();
-
 
         String command = e.getActionCommand();
 

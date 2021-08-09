@@ -60,18 +60,23 @@
         "id": "meme-crypto-wallet-no-security"
     },
     {
-        "security": 0,
-        "phrase": ["asdf"],
-        "id": "test-two"
+        "security": 3,
+        "phrase": ["test"],
+        "id": "test"
     },
     {
         "security": 2,
-        "phrase": ["d f a"],
-        "id": "testadd"
+        "phrase": ["a"],
+        "id": "two"
     },
     {
-        "security": 2,
-        "phrase": ["a s d"],
-        "id": "test2"
+        "security": 3,
+        "phrase": ["a"],
+        "id": "three"
+    },
+    {
+        "security": 4,
+        "phrase": ["a"],
+        "id": "four"
     }
 ]

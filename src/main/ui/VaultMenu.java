@@ -12,13 +12,14 @@ import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /*
 CITATION: Main structure of VaultMenu is based on FrameDemo2 from Oracle Swing demo files
+
+Class represents the main menu that loads and saves information
  */
 
-public class VaultMenu extends WindowAdapter implements ActionListener {
+public class VaultMenu extends WindowAdapter {
 
     private static final String JSON_STORE_SEEDPHRASE = "./data/seedphrase.json";
     private static final String JSON_STORE_VERIFICATION = "./data/verification.json";
@@ -28,13 +29,9 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
     private JsonReader jsonReader;
 
     private Point lastLocation = null;
-    private int maxX = 500;
-    private int maxY = 500;
+    private int maxX;
+    private int maxY;
 
-    //the main frame's default button
-    private static JButton defaultButton = null;
-
-    //Perform some initialization.
     public VaultMenu() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         maxX = screenSize.width - 50;
@@ -83,97 +80,55 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
         }
     }
 
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
-     */
+    //MODIFIES: this
+    //EFFECTS: shows menu frame
     public static void createAndShowGUI() {
 
-        //Instantiate the controlling class.
         Frame frame = new MenuFrame("Crypto Seed-Phrase Vault");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Create and set up the content pane.
-        VaultMenu demo = new VaultMenu();
-
-        //Add components to it.
-//        Container contentPane = frame.getContentPane();
-//        contentPane.add(demo.createOptionControls(),
-//                BorderLayout.CENTER);
-//        contentPane.add(demo.createButtonPane(),
-//                BorderLayout.PAGE_END);
-//        frame.getRootPane().setDefaultButton(defaultButton);
-
-        //Display the window.
         frame.pack();
         frame.setLocationRelativeTo(null); //center it
         frame.setVisible(true);
     }
 
 
-
-    //Create a new MyFrame object and show it.
-    public void showNewWindow() {
-//        Frame frame = new AddSecurityQuestionFrame("New title for window", verification.get(2));
-
-//        positionFrame(frame, 300, 200);
-    }
-
+    //EFFECTS: Shows security question frame
     public void showSecurityQuestionsFrame() {
         Frame frame = new SecurityQuestionsFrame("Security Questions");
 
         positionFrame(frame, 300, 200);
     }
 
-    //Create a new Verification Frame object for seed-phrase and show it.
+    //EFFECTS: shows verification frame that leads to select seed-phrase frame
     public void showVerificationWindow(SeedPhrase sp) {
-        Frame frame = new VerificationFrame(sp.getId(), sp, verification);
+        new VerificationFrame(sp.getId(), sp, verification);
     }
 
-    //Create a new Verification Frame object for security-questions and show it.
+    //EFFECTS: shows verification frame that leads to security questions frame
     public void showVerificationWindow() {
-        Frame frame = new VerificationFrame("Security Questions", verification);
+        new VerificationFrame("Security Questions", verification);
     }
 
+    //EFFECTS: shows seed phrase frame
     public void showSeedPhrase(SeedPhrase sp) {
         Frame frame = new SeedPhraseSelectFrame(sp.getId(), sp);
         positionFrame(frame, 350, 150);
     }
 
-    public void test() {
-//        this.verification = verification;
-        System.out.println("==========================");
-        System.out.println(verification);
-        for (int i = 0; i < verification.length(); i++) {
-            System.out.println(verification.get(i).getQuestion());
-        }
-    }
-
+    //MODIFIES: this
+    //EFFECTS: saves and updates seed-phrase and security questions
     public void saveAndUpdate() {
         saveSeedPhrasesAndVerification();
         init();
     }
 
+    //EFFECTS: returns saved verification
     public Verification getLatestVerification() {
         loadVerification();
         return this.verification;
     }
 
-    public ArrayList<SeedPhrase> getLatestSeedPhrase() {
-        loadSeedPhrases();
-        return this.sp;
-    }
-
-    public void addSecurityQuestion(String question, String answer) {
-        this.verification.addSecurityQuestion(question, answer);
-    }
-
-    public void deleteSecurityQuestion(SecurityQuestion sq) {
-        this.verification.remove(sq);
-    }
-
-    //Create a new Verification Frame object for seed-phrase and show it.
+    //MODIFIES: this
+    //EFFECT: refresh fields and show a verification Frame object for seed-phrase
     public void showSeedPhrasesWindow() {
         init();
         Frame frame = new SeedPhrasesFrame("Seed-Phrases", sp);
@@ -181,6 +136,7 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
         positionFrame(frame, 300, 300);
     }
 
+    //MODIFIES: frame
     //EFFECTS: positions frame with width and height
     public void positionFrame(JFrame frame, int width, int height) {
         //Set window location.
@@ -195,24 +151,7 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
             lastLocation = frame.getLocation();
         }
 
-        //Show window.
         frame.setSize(new Dimension(width, height));
         frame.setVisible(true);
     }
-
-    @Override
-    //Handle action events from all the buttons.
-    public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
-
-        //Handle the New window button.
-        if ("cw".equals(command)) {
-            showNewWindow();
-
-            //Handle the first group of radio buttons.
-        } else if ("asdf".equals(command)) {
-            JFrame.setDefaultLookAndFeelDecorated(false);
-        }
-    }
-
 }

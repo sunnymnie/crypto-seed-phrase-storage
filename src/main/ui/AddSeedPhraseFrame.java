@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+A frame to add a new seed-phrase
+ */
 public class AddSeedPhraseFrame extends Frame {
     private JTextField idField;
     private JTextField seedPhraseField;
@@ -16,7 +19,6 @@ public class AddSeedPhraseFrame extends Frame {
     public AddSeedPhraseFrame(String title) {
         super(title);
         addForum();
-//        addCloseButton();
     }
 
 
@@ -27,7 +29,7 @@ public class AddSeedPhraseFrame extends Frame {
         idField = new JTextField(10);
         idField.addActionListener(this);
 
-        JLabel questionSP = new JLabel("Enter seed-phrase separated with spaces");
+        JLabel questionSP = new JLabel("Enter seed-phrase separated with commas");
         seedPhraseField = new JTextField(20);
         seedPhraseField.addActionListener(this);
 
@@ -36,7 +38,6 @@ public class AddSeedPhraseFrame extends Frame {
         securityField.addActionListener(this);
 
         JButton submitButton = new JButton("Submit");
-//        HireListener hireListener = new HireListener(submitButton);
         submitButton.setActionCommand("submit");
         submitButton.addActionListener(this);
 
@@ -54,32 +55,19 @@ public class AddSeedPhraseFrame extends Frame {
 
     }
 
-
+    //MODIFIES: menu
+    //EFFECTS: processes command for submit
     @Override
     public void actionPerformed(ActionEvent e) {
         String id = idField.getText();
         String seedPhrase = seedPhraseField.getText();
         String security = securityField.getText();
-        String command = e.getActionCommand();
 
-        //Handle the New window button.
-        if ("submit".equals(command)) {
-            System.out.println(id);
-            System.out.println(seedPhrase);
-            System.out.println(security);
+        List<String> phrase = Arrays.asList(seedPhrase.split("\\s*,\\s*"));
 
-            List<String> phrase = Arrays.asList(seedPhrase.split("\\s*,\\s*"));
+        menu.sp.add(new SeedPhrase(phrase, id, Integer.parseInt(security)));
+        menu.saveAndUpdate();
 
-            menu.sp.add(new SeedPhrase(phrase, id, Integer.parseInt(security)));
-            menu.saveAndUpdate();
-
-        } else if ("asp".equals(command)) {
-            //pass
-        } else if ("vsq".equals(command)) {
-            //pass
-        } else if ("asq".equals(command)) {
-            //pass
-        }
         setVisible(false);
         dispose();
     }

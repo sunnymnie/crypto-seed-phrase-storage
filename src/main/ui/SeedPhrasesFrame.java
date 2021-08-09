@@ -3,14 +3,16 @@ package ui;
 import model.SeedPhrase;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class SeedPhrasesFrame extends Frame implements ListSelectionListener, ActionListener {
+/*
+represents a frame to display all seed-phrases as a list
+ */
+
+public class SeedPhrasesFrame extends Frame implements ActionListener {
 
     private JList list;
     private DefaultListModel listModel;
@@ -28,21 +30,13 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         listModel = new DefaultListModel();
         addSeedPhrases();
 
-        //Create the list and put it in a scroll pane.
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
-        list.addListSelectionListener(this);
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
 
-        view = new JButton("view or delete");
-        view.setActionCommand("view");
-        view.addActionListener(this);
-
-        add = new JButton("add");
-        add.setActionCommand("add_seed_phrase");
-        add.addActionListener(this);
+        initButtons();
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane,
@@ -60,6 +54,18 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
     }
 
     //MODIFIES: this
+    //EFFECTS: initializes buttons
+    private void initButtons() {
+        view = new JButton("view or delete");
+        view.setActionCommand("view");
+        view.addActionListener(this);
+
+        add = new JButton("add");
+        add.setActionCommand("add_seed_phrase");
+        add.addActionListener(this);
+    }
+
+    //MODIFIES: this
     //EFFECTS: adds seed phrases to list
     private void addSeedPhrases() {
         for (SeedPhrase s : sp) {
@@ -67,17 +73,9 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         }
     }
 
-    public void updateList() {
-        menu.sp = menu.getLatestSeedPhrase();
-        listModel.clear();
-        addSeedPhrases();
-    }
-
+    //MODIFIES: this, menu
+    //EFFECTS: processes command to allow adding or viewing seed-phrases
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-
-    }
-
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         int index = list.getSelectedIndex();
@@ -94,26 +92,7 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
                 menu.showSeedPhrase(seed);
             }
         }
-//        listModel.remove(index);
-
-//        int size = listModel.getSize();
-//
-//        if (size == 0) { //Nobody's left, disable firing.
-//            fireButton.setEnabled(false);
-
-//        } else { //Select an index.
-//            if (index == listModel.getSize()) {
-//                //removed item in last position
-//                index--;
-//            }
-//
-//            list.setSelectedIndex(index);
-//            list.ensureIndexIsVisible(index);
-
-//        System.out.println(sp.get(index).getId());
-
         setVisible(false);
         dispose();
-
     }
 }

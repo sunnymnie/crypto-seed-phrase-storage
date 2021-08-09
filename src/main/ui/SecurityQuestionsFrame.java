@@ -1,15 +1,15 @@
 package ui;
 
-import model.Verification;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SecurityQuestionsFrame extends Frame implements ListSelectionListener, ActionListener {
+/*
+represents a frame for displaying all security questions
+ */
+
+public class SecurityQuestionsFrame extends Frame implements ActionListener {
     private JList list;
     private DefaultListModel listModel;
 
@@ -20,16 +20,7 @@ public class SecurityQuestionsFrame extends Frame implements ListSelectionListen
     public SecurityQuestionsFrame(String title) {
         super(title);
 
-
-        listModel = new DefaultListModel();
-        addSecurityQuestions();
-
-        //Create the list and put it in a scroll pane.
-        list = new JList(listModel);
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setSelectedIndex(0);
-        list.addListSelectionListener(this);
-        list.setVisibleRowCount(5);
+        initListModel();
         JScrollPane listScrollPane = new JScrollPane(list);
 
         edit = new JButton("Select");
@@ -55,29 +46,36 @@ public class SecurityQuestionsFrame extends Frame implements ListSelectionListen
     }
 
     //MODIFIES: this
-    //EFFECTS: adds seed phrases to list
+    //EFFECTS: adds security questions to list
     private void addSecurityQuestions() {
         for (int i = 0; i < menu.verification.length(); i++) {
             listModel.addElement(menu.verification.get(i).getQuestion());
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: initializes list model and adds questions
+    private void initListModel() {
+        listModel = new DefaultListModel();
+        addSecurityQuestions();
+
+        list = new JList(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        list.setVisibleRowCount(5);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: updates list with up-to-date security questions
     public void updateList() {
         menu.verification = menu.getLatestVerification();
         listModel.clear();
         addSecurityQuestions();
     }
 
-
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        //asdf
-    }
-
+    //MODIFIES: this, menu
+    //EFFECTS: processes command
     public void actionPerformed(ActionEvent e) {
-        //This method can be called only if
-        //there's a valid selection
-        //so go ahead and remove whatever's selected.
         int index = list.getSelectedIndex();
         String command = e.getActionCommand();
         if ("select".equals(command)) {
@@ -86,10 +84,7 @@ public class SecurityQuestionsFrame extends Frame implements ListSelectionListen
         } else if ("add".equals(command)) {
             Frame frame = new AddSecurityQuestionFrame("Add security question",this);
             menu.positionFrame(frame, 300, 300);
-
         }
-
-
     }
 
 

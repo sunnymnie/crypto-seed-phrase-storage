@@ -3,7 +3,6 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 import model.SecurityQuestion;
 import model.SeedPhrase;
@@ -11,6 +10,8 @@ import model.Verification;
 
 /*
 CITATION: Based on ListDemoProject from Oracle Swing demo files
+
+Class represents a verification frame
  */
 public class VerificationFrame extends Frame {
 
@@ -30,28 +31,25 @@ public class VerificationFrame extends Frame {
 
         this.sp = sp;
         init(verification);
-//        addCloseButton();
     }
 
     public VerificationFrame(String title, Verification verification) {
         super(title);
         init(verification);
-//        addCloseButton();
     }
 
     //MODIFIES: this
-    //EFFECTS: inits fields
+    //EFFECTS: initializes fields
     private void init(Verification verification) {
         this.verification = menu.verification;
         if (verification.length() > 0) {
-            menu.test();
 
             getNumQuestions();
             this.nextQuestion = 1;
             this.allCorrect = true;
             currentQuestion = verification.get(0);
 
-            addQuestion();
+            initQuestionAndAnswerFields();
 
             menu.positionFrame(this, 500, 100);
         } else {
@@ -59,9 +57,9 @@ public class VerificationFrame extends Frame {
         }
     }
 
-    //REQUIRES: seed-phrase security to be one or greater
+    //REQUIRES: valid seed-phrase security integer in range [-1, ...)
     //MODIFIES: this
-    //EFFECTS: interprets seed-phrase security to gat number of questions to do
+    //EFFECTS: interprets seed-phrase security to get number of questions to do
     private void getNumQuestions() {
         if (sp != null) {
             int security = sp.getSecurity();
@@ -69,6 +67,8 @@ public class VerificationFrame extends Frame {
                 this.numQuestions = verification.length();
             } else if (security > verification.length()) {
                 this.numQuestions = verification.length();
+            } else {
+                this.numQuestions = security;
             }
         } else {
             this.numQuestions = verification.length();
@@ -76,8 +76,8 @@ public class VerificationFrame extends Frame {
     }
 
     //MODIFIES: this
-    //EFFECTS: Adds question and text fields
-    private void addQuestion() {
+    //EFFECTS: initializes question and text fields
+    private void initQuestionAndAnswerFields() {
         question = new JLabel(verification.get(0).getQuestion());
 
         answerField = new JTextField(10);
@@ -97,16 +97,25 @@ public class VerificationFrame extends Frame {
         box.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         contentPane.add(box, BorderLayout.CENTER);
 
-//        getRootPane().setDefaultButton(submitButton);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: displays next question
+    private void updateQuestion() {
+        currentQuestion = this.verification.get(nextQuestion);
+        question.setText(currentQuestion.getQuestion());
+        this.nextQuestion += 1;
+        answerField.requestFocusInWindow();
     }
 
 
+    //MODIFIES: this, menu
+    //EFFECTS: processes user answers to security questions
     @Override
     public void actionPerformed(ActionEvent e) {
         String answer = answerField.getText();
         String command = e.getActionCommand();
 
-        //Handle the New window button.
         if ("submit".equals(command)) {
 
             if (!currentQuestion.checkAnswer(answer)) {
@@ -114,13 +123,9 @@ public class VerificationFrame extends Frame {
             }
             answerField.setText("");
             if (this.nextQuestion < this.numQuestions) {
-                currentQuestion = this.verification.get(nextQuestion);
-                question.setText(currentQuestion.getQuestion());
-                this.nextQuestion += 1;
-                answerField.requestFocusInWindow();
+                updateQuestion();
             } else {
                 if (allCorrect) {
-//                    question.setText("Congrats!");
                     nextFrame();
                 } else {
                     question.setText("One or more of your answers are incorrect!");
@@ -130,24 +135,21 @@ public class VerificationFrame extends Frame {
                 }
             }
 
-//            System.out.println(answer);
-//            question.setText(answer);
-
         } else if ("close".equals(command)) {
             setVisible(false);
             dispose();
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: calls menu and opens next frame and disposes current frame
     private void nextFrame() {
         if (sp != null) {
             menu.showSeedPhrase(sp);
-            playVaultOpenSound();
         } else {
             menu.showSecurityQuestionsFrame();
-            playVaultOpenSound();
         }
+        playVaultOpenSound();
         setVisible(false);
         dispose();
     }

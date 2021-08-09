@@ -6,12 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/*
+represents frame that shows seed-phrase word by word
+ */
+
 public class ShowSeedPhraseIndividuallyFrame extends Frame {
 
-    SeedPhrase sp;
+    private SeedPhrase sp;
     int index;
     private JLabel word;
-    JButton next;
+    private JButton next;
 
     public ShowSeedPhraseIndividuallyFrame(String title, SeedPhrase sp) {
         super(title);
@@ -31,6 +35,7 @@ public class ShowSeedPhraseIndividuallyFrame extends Frame {
 
     }
 
+    //EFFECTS: shows each word individually
     @Override
     public void actionPerformed(ActionEvent e) {
         index++;
