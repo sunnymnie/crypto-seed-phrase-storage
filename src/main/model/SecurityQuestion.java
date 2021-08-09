@@ -3,6 +3,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 /*
 Represents a security question with question and answer
  */
@@ -41,6 +43,11 @@ public class SecurityQuestion implements Writable {
         return this.question;
     }
 
+    //EFFECTS: Returns answer
+    public String getAnswer() {
+        return this.answer;
+    }
+
     //EFFECTS: Returns security question as JSON object
     @Override
     public JSONObject toJson() {
@@ -48,5 +55,18 @@ public class SecurityQuestion implements Writable {
         json.put("question", this.question);
         json.put("answer", this.answer);
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SecurityQuestion that = (SecurityQuestion) o;
+        return Objects.equals(question, that.question) && Objects.equals(answer, that.answer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, answer);
     }
 }

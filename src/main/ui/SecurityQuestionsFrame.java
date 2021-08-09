@@ -1,6 +1,6 @@
 package ui;
 
-import model.SeedPhrase;
+import model.Verification;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -8,25 +8,21 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class SeedPhrasesFrame extends Frame implements ListSelectionListener, ActionListener {
-
+public class SecurityQuestionsFrame extends Frame implements ListSelectionListener, ActionListener {
     private JList list;
     private DefaultListModel listModel;
 
     private JButton edit;
     private JButton add;
 
-    private ArrayList<SeedPhrase> sp;
 
-    public SeedPhrasesFrame(String title, ArrayList<SeedPhrase> sp) {
+    public SecurityQuestionsFrame(String title) {
         super(title);
 
-        this.sp = sp;
 
         listModel = new DefaultListModel();
-        addSeedPhrases();
+        addSecurityQuestions();
 
         //Create the list and put it in a scroll pane.
         list = new JList(listModel);
@@ -37,11 +33,11 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         JScrollPane listScrollPane = new JScrollPane(list);
 
         edit = new JButton("Select");
-        edit.setActionCommand("Select");
+        edit.setActionCommand("select");
         edit.addActionListener(this);
 
         add = new JButton("add");
-        add.setActionCommand("add_seed_phrase");
+        add.setActionCommand("add");
         add.addActionListener(this);
 
         JPanel buttonPane = new JPanel();
@@ -56,20 +52,26 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
 
         add(listScrollPane, BorderLayout.CENTER);
         add(buttonPane, BorderLayout.PAGE_END);
-
     }
 
     //MODIFIES: this
     //EFFECTS: adds seed phrases to list
-    private void addSeedPhrases() {
-        for (SeedPhrase s : sp) {
-            listModel.addElement(s.getId());
+    private void addSecurityQuestions() {
+        for (int i = 0; i < menu.verification.length(); i++) {
+            listModel.addElement(menu.verification.get(i).getQuestion());
         }
     }
 
+    public void updateList() {
+        menu.verification = menu.getLatestVerification();
+        listModel.clear();
+        addSecurityQuestions();
+    }
+
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
-
+        //asdf
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -77,26 +79,18 @@ public class SeedPhrasesFrame extends Frame implements ListSelectionListener, Ac
         //there's a valid selection
         //so go ahead and remove whatever's selected.
         int index = list.getSelectedIndex();
-//        listModel.remove(index);
+        String command = e.getActionCommand();
+        if ("select".equals(command)) {
+            Frame frame = new AddSecurityQuestionFrame("Edit security question", menu.verification.get(index), this);
+            menu.positionFrame(frame, 300, 300);
+        } else if ("add".equals(command)) {
+            Frame frame = new AddSecurityQuestionFrame("Add security question",this);
+            menu.positionFrame(frame, 300, 300);
 
-//        int size = listModel.getSize();
-//
-//        if (size == 0) { //Nobody's left, disable firing.
-//            fireButton.setEnabled(false);
+        }
 
-//        } else { //Select an index.
-//            if (index == listModel.getSize()) {
-//                //removed item in last position
-//                index--;
-//            }
-//
-//            list.setSelectedIndex(index);
-//            list.ensureIndexIsVisible(index);
-
-//        System.out.println(sp.get(index).getId());
-        menu.showVerificationWindow(sp.get(index));
-        setVisible(false);
-        dispose();
 
     }
+
+
 }

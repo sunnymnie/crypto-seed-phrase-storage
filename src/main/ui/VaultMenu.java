@@ -1,5 +1,6 @@
 package ui;
 
+import model.SecurityQuestion;
 import model.SeedPhrase;
 import model.Verification;
 import persistence.JsonReader;
@@ -8,6 +9,7 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,8 +23,8 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
     private static final String JSON_STORE_SEEDPHRASE = "./data/seedphrase.json";
     private static final String JSON_STORE_VERIFICATION = "./data/verification.json";
     private ArrayList<SeedPhrase> sp;
-    private Verification verification;
-//    private JsonWriter jsonWriter;
+    protected Verification verification;
+    private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     private Point lastLocation = null;
@@ -43,7 +45,7 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
     // MODIFIES: this
     // EFFECTS: initializes seed-phrases and security questions
     private void init() {
-//        jsonWriter = new JsonWriter(JSON_STORE_SEEDPHRASE, JSON_STORE_VERIFICATION);
+        jsonWriter = new JsonWriter(JSON_STORE_SEEDPHRASE, JSON_STORE_VERIFICATION);
         jsonReader = new JsonReader(JSON_STORE_SEEDPHRASE, JSON_STORE_VERIFICATION);
         loadSeedPhrases();
         loadVerification();
@@ -69,7 +71,17 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
         }
     }
 
-
+    // EFFECTS: saves the seed-phrases and verification to file
+    private void saveSeedPhrasesAndVerification() {
+        try {
+            jsonWriter.open();
+            jsonWriter.writeSeedPhrases(sp);
+            jsonWriter.writeVerification(verification);
+            jsonWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file");
+        }
+    }
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -103,7 +115,13 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
 
     //Create a new MyFrame object and show it.
     public void showNewWindow() {
-        Frame frame = new AddSeedPhraseFrame("New title for window");
+//        Frame frame = new AddSecurityQuestionFrame("New title for window", verification.get(2));
+
+//        positionFrame(frame, 300, 200);
+    }
+
+    public void showSecurityQuestionsFrame() {
+        Frame frame = new SecurityQuestionsFrame("Security Questions");
 
         positionFrame(frame, 300, 200);
     }
@@ -115,6 +133,39 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
         positionFrame(frame, 500, 100);
     }
 
+    //Create a new Verification Frame object for security-questions and show it.
+    public void showVerificationWindow() {
+        Frame frame = new VerificationFrame("Security Questions", verification);
+        positionFrame(frame, 500, 100);
+    }
+
+    public void test() {
+//        this.verification = verification;
+        System.out.println("==========================");
+        System.out.println(verification);
+        for (int i = 0; i < verification.length(); i++) {
+            System.out.println(verification.get(i).getQuestion());
+        }
+    }
+
+    public void saveAndUpdate() {
+        saveSeedPhrasesAndVerification();
+        init();
+    }
+
+    public Verification getLatestVerification() {
+        loadVerification();
+        return this.verification;
+    }
+
+    public void addSecurityQuestion(String question, String answer) {
+        this.verification.addSecurityQuestion(question, answer);
+    }
+
+    public void deleteSecurityQuestion(SecurityQuestion sq) {
+        this.verification.remove(sq);
+    }
+
     //Create a new Verification Frame object for seed-phrase and show it.
     public void showSeedPhrasesWindow() {
         Frame frame = new SeedPhrasesFrame("Seed-Phrases", sp);
@@ -123,7 +174,7 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
     }
 
     //EFFECTS: positions frame with width and height
-    private void positionFrame(Frame frame, int width, int height) {
+    public void positionFrame(Frame frame, int width, int height) {
         //Set window location.
         if (lastLocation != null) {
             //Move the window over and down 40 pixels.
@@ -137,7 +188,7 @@ public class VaultMenu extends WindowAdapter implements ActionListener {
         }
 
         //Show window.
-        frame.setSize(new Dimension(300, 200));
+        frame.setSize(new Dimension(width, height));
         frame.setVisible(true);
     }
 

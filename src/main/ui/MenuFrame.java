@@ -6,10 +6,10 @@ import java.awt.event.ActionEvent;
 
 public class MenuFrame extends Frame {
 
-    private static final String VSP = "view_seed_phrases";
-    private static final String ASP = "add_seed_phrase";
-    private static final String VSQ = "view_security_questions";
-    private static final String ASQ = "add_security_question";
+    private static final String VSP = "seed_phrases";
+//    private static final String ASP = "add_seed_phrase";
+    private static final String VSQ = "security_questions";
+//    private static final String ASQ = "add_security_question";
 
 
     public MenuFrame(String title) {
@@ -35,31 +35,37 @@ public class MenuFrame extends Frame {
         JLabel labelSP = new JLabel("Seed-phrases");
         JLabel labelSQ = new JLabel("Security questions");
 
-        JButton buttonSP = addButton("View seed-phrases", VSP);
-        JButton buttonASP = addButton("Add seed-phrase", ASP);
-        JButton buttonSQ = addButton("View security-questions", VSQ);
-        JButton buttonASQ = addButton("Add security-question", ASQ);
+        JButton buttonSP = addButton("seed-phrases", VSP);
+//        JButton buttonASP = addButton("Add seed-phrase", ASP);
+        JButton buttonSQ = addButton("security-questions", VSQ);
+//        JButton buttonASQ = addButton("Add security-question", ASQ);
 
         //Add everything to a container.
-        Box box = Box.createVerticalBox();
-        Box box1 = Box.createVerticalBox();
-        Box horizontalBox = Box.createHorizontalBox();
-        box.add(labelSP);
-        box.add(buttonSP);
-        box.add(buttonASP);
-        box1.add(labelSQ);
-        box1.add(buttonSQ);
-        box1.add(buttonASQ);
+//        Box box = Box.createVerticalBox();
+        JPanel box = new JPanel();
+//        Box box1 = Box.createVerticalBox();
+//        Box horizontalBox = Box.createHorizontalBox();
+//        box.add(labelSP);
+//        box.add(buttonSP);
+//        box.add(buttonASP);
+//        box1.add(labelSQ);
+//        box1.add(buttonSQ);
+//        box1.add(buttonASQ);
 
-        horizontalBox.add(box);
-        horizontalBox.add(box1);
+//        horizontalBox.add(box);
+//        horizontalBox.add(box1);
+
+//        box.add(labelSP);
+        box.add(buttonSP);
+//        box.add(labelSQ);
+        box.add(buttonSQ);
 
         //Add some breathing room.
         box.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        box1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        horizontalBox.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//        box1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//        horizontalBox.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        contentPane.add(horizontalBox, BorderLayout.CENTER);
+        contentPane.add(box, BorderLayout.CENTER);
     }
 
 
@@ -71,12 +77,13 @@ public class MenuFrame extends Frame {
         if (VSP.equals(command)) {
             menu.showSeedPhrasesWindow();
 
-        } else if (ASP.equals(command)) {
-            menu.showNewWindow();
+//        } else if (ASP.equals(command)) {
+//            menu.showNewWindow();
         } else if (VSQ.equals(command)) {
+            menu.showVerificationWindow();
             //pass
-        } else if (ASQ.equals(command)) {
-            //pass
+//        } else if (ASQ.equals(command)) {
+//            //pass
         } else {
             setVisible(false);
             dispose();

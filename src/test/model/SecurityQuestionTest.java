@@ -50,4 +50,13 @@ public class SecurityQuestionTest {
         sq.updateQuestion("test 1");
         assertTrue(sq.getQuestion().equals("test 1"));
     }
+
+    @Test
+    public void testGetAnswer() {
+        assertEquals("One", sq.getAnswer());
+        sq.updateAnswer("Three");
+        assertEquals("Three", sq.getAnswer());
+        sq.updateAnswer("test 1");
+        assertEquals("test 1", sq.getAnswer());
+    }
 }
