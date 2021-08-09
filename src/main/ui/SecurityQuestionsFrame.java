@@ -79,8 +79,13 @@ public class SecurityQuestionsFrame extends Frame implements ActionListener {
         int index = list.getSelectedIndex();
         String command = e.getActionCommand();
         if ("select".equals(command)) {
-            Frame frame = new AddSecurityQuestionFrame("Edit security question", menu.verification.get(index), this);
-            menu.positionFrame(frame, 300, 300);
+            try {
+                Frame frame = new AddSecurityQuestionFrame("Edit security question",
+                        menu.verification.get(index), this);
+                menu.positionFrame(frame, 300, 300);
+            } catch (Exception exception) {
+                playErrorSound();
+            }
         } else if ("add".equals(command)) {
             Frame frame = new AddSecurityQuestionFrame("Add security question",this);
             menu.positionFrame(frame, 300, 300);

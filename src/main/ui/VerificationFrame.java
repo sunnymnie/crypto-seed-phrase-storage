@@ -26,21 +26,21 @@ public class VerificationFrame extends Frame {
     private JLabel question;
     private JButton submitButton;
 
-    public VerificationFrame(String title, SeedPhrase sp, Verification verification) {
+    public VerificationFrame(String title, SeedPhrase sp) {
         super(title);
 
         this.sp = sp;
-        init(verification);
+        init();
     }
 
-    public VerificationFrame(String title, Verification verification) {
+    public VerificationFrame(String title) {
         super(title);
-        init(verification);
+        init();
     }
 
     //MODIFIES: this
     //EFFECTS: initializes fields
-    private void init(Verification verification) {
+    private void init() {
         this.verification = menu.verification;
         if (verification.length() > 0) {
 

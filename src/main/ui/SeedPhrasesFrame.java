@@ -84,12 +84,16 @@ public class SeedPhrasesFrame extends Frame implements ActionListener {
             Frame frame = new AddSeedPhraseFrame("New Seed-Phrase");
             menu.positionFrame(frame, 300, 300);
         } else if ("view".equals(command)) {
-            SeedPhrase seed = sp.get(index);
+            try {
+                SeedPhrase seed = sp.get(index);
 
-            if ((seed.getSecurity() >= 1 || seed.getSecurity() == -1)) {
-                menu.showVerificationWindow(seed);
-            } else {
-                menu.showSeedPhrase(seed);
+                if ((seed.getSecurity() >= 1 || seed.getSecurity() == -1)) {
+                    menu.showVerificationWindow(seed);
+                } else {
+                    menu.showSeedPhrase(seed);
+                }
+            } catch (Exception exception) {
+                playErrorSound();
             }
         }
         setVisible(false);

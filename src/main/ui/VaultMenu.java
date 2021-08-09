@@ -100,12 +100,12 @@ public class VaultMenu extends WindowAdapter {
 
     //EFFECTS: shows verification frame that leads to select seed-phrase frame
     public void showVerificationWindow(SeedPhrase sp) {
-        new VerificationFrame(sp.getId(), sp, verification);
+        new VerificationFrame(sp.getId(), sp);
     }
 
     //EFFECTS: shows verification frame that leads to security questions frame
     public void showVerificationWindow() {
-        new VerificationFrame("Security Questions", verification);
+        new VerificationFrame("Security Questions");
     }
 
     //EFFECTS: shows seed phrase frame

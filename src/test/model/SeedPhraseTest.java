@@ -64,6 +64,10 @@ public class SeedPhraseTest {
         assertEquals(new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3),
                 new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3));
         assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "d"), "test", 3),
+                new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3));
+        assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "c"), "tst", 3),
+                new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3));
+        assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3),
                 new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 2));
         assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "d"), "test", 3),
                 new SeedPhrase(Arrays.asList("a", "b", "c"), "tst", 3));
@@ -75,6 +79,10 @@ public class SeedPhraseTest {
                 new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3));
         assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "c"), "tests", 2),
                 new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 3));
+        assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "c"), "tests", 2),
+                new SeedPhrase(Arrays.asList("a", "b", "d", "a"), "tests", -1));
+        assertNotEquals(new SeedPhrase(Arrays.asList("a", "b", "c"), "test", 2),
+                new SeedPhrase(Arrays.asList("a", "b"), "tests", -1));
     }
 
     @Test
