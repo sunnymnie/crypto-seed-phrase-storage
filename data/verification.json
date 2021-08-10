@@ -16,19 +16,11 @@
         "answer": "yellow"
     },
     {
-        "question": "What is my favourite animal (answer: deer)?",
-        "answer": "deer"
-    },
-    {
         "question": "What is my wife's last name (answer: mali)?",
         "answer": "mali"
     },
     {
-        "question": "What year was I born (answer: 1912)?",
-        "answer": "1912"
-    },
-    {
-        "question": "When did I get married (answer: 1984)?",
-        "answer": "1984"
+        "question": "What is my favourite animal (answer: tiger)?",
+        "answer": "tiger"
     }
 ]

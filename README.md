@@ -29,8 +29,10 @@ Optional user-stories (criteria says only two, so refer to above):
 - As a user, I want to be able to have the option to display my entire seed-phrase once I answer enough security questions correctly
 - As a user, I want to be able to have the option to display my seed phrase word-by-word once I answer enough security questions correctly
 
-## Crypto information
-- **cryptocurrency**: A currency that uses blockchain technology. Examples include Bitcoin, Ethereum, Doge Coin, etc. 
-- **seed phrase**: a long password for a crypto wallet. Usually is 12 or 24 words long. An example: `cat tree box tissue umbrella ...`
-- **crypto wallet**: a 'bank account' that 'stores' the crypto currency
-- **crypto address**: the identification used by the crypto wallet to allow users to send cryptocurrencies to that wallet. 
+## Phase 4: Task 2
+> Test and design a class in your model package that is robust.  You must have at least one method that throws a checked exception.  You must have one test for the case where the exception is expected and another where the exception is not expected.
+
+- Class: `model>verification`
+- Method: `public SecurityQuestion get(int index) throws NegativeIndexException`
+- Tests: `testGetPossible()`, `testGetNegative()`, `testGetNegativeTwo()`
+

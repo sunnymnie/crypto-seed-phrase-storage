@@ -1,5 +1,7 @@
 package ui;
 
+import model.NegativeIndexException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,8 @@ public class SecurityQuestionsFrame extends Frame implements ActionListener {
 
     private JButton edit;
     private JButton add;
+
+    private AddSecurityQuestionFrame frame;
 
 
     public SecurityQuestionsFrame(String title) {
@@ -80,14 +84,14 @@ public class SecurityQuestionsFrame extends Frame implements ActionListener {
         String command = e.getActionCommand();
         if ("select".equals(command)) {
             try {
-                Frame frame = new AddSecurityQuestionFrame("Edit security question",
+                frame = new AddSecurityQuestionFrame("Edit security question",
                         menu.verification.get(index), this);
                 menu.positionFrame(frame, 300, 300);
-            } catch (Exception exception) {
+            } catch (NegativeIndexException exception) {
                 playErrorSound();
             }
         } else if ("add".equals(command)) {
-            Frame frame = new AddSecurityQuestionFrame("Add security question",this);
+            frame = new AddSecurityQuestionFrame("Add security question",this);
             menu.positionFrame(frame, 300, 300);
         }
     }

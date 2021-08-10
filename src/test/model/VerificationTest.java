@@ -27,14 +27,42 @@ public class VerificationTest {
     }
 
     @Test
-    public void testGet() {
-        assertEquals(verification.length(), 1);
-        assertTrue(verification.get(0).getQuestion().equals("Question string?0"));
-        assertTrue(verification.get(0).checkAnswer("answer0"));
-        verification.addSecurityQuestion("Question string?1", "answer1");
-        assertEquals(verification.length(), 2);
-        assertTrue(verification.get(1).getQuestion().equals("Question string?1"));
-        assertTrue(verification.get(1).checkAnswer("answer1"));
+    public void testGetPossible() {
+        try {
+            assertEquals(verification.length(), 1);
+            assertTrue(verification.get(0).getQuestion().equals("Question string?0"));
+            assertTrue(verification.get(0).checkAnswer("answer0"));
+            verification.addSecurityQuestion("Question string?1", "answer1");
+            assertEquals(verification.length(), 2);
+            assertTrue(verification.get(1).getQuestion().equals("Question string?1"));
+            assertTrue(verification.get(1).checkAnswer("answer1"));
+        } catch (NegativeIndexException e) {
+            fail("Should work");
+        }
+    }
+
+    @Test
+    public void testGetNegative() {
+        try {
+            verification.get(-1);
+            fail("Should not reach here");
+        } catch (NegativeIndexException e) {
+            //pass
+        } catch (Exception e) {
+            fail("Should not reach here");
+        }
+    }
+
+    @Test
+    public void testGetNegativeTwo() {
+        try {
+            verification.get(-2);
+            fail("Should not reach here");
+        } catch (NegativeIndexException e) {
+            //pass
+        } catch (Exception e) {
+            fail("Should not reach here");
+        }
     }
 
     @Test

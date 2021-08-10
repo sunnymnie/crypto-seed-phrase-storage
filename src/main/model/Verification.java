@@ -30,8 +30,12 @@ public class Verification {
     }
 
     //EFFECTS: returns the security question at index
-    public SecurityQuestion get(int index) {
-        return sq.get(index);
+    public SecurityQuestion get(int index) throws NegativeIndexException {
+        if (index < 0) {
+            throw new NegativeIndexException();
+        } else {
+            return sq.get(index);
+        }
     }
 
     //MODIFIES: this

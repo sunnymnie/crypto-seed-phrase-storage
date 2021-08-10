@@ -58,5 +58,10 @@
             "scene"
         ],
         "id": "meme-crypto-wallet-no-security"
+    },
+    {
+        "security": 2,
+        "phrase": ["a"],
+        "id": "test wallet"
     }
 ]
