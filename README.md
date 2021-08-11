@@ -34,5 +34,10 @@ Optional user-stories (criteria says only two, so refer to above):
 
 - Class: `model>verification`
 - Method: `public SecurityQuestion get(int index) throws NegativeIndexException`
-- Tests: `testGetPossible()`, `testGetNegative()`, `testGetNegativeTwo()`
+- Tests: `testGetPossible()`, `testGetNegative()`, `testGetNegativeTwo`
 
+## Phase 4: Task 3
+If I had more time to work on the project and refactor, I would:
+- Add more subclasses to the abstract class `Frame` to be more suited for each of the other frames. 
+- Some of my frame classes sometimes lack cohesion and perform two separate roles but are combined because they share the same UI. For example, the `AddSecuirtyQuestionFrame` also functions as an 'edit' security question frame, and it chooses that role if I pass it a security question. To refactor, I think create a new class called `EditSecurityQuestionFrame` that extends `AddSecurityQuestionFrame` so that it can share the same UI, but can have different functionalities without adding if statements to the `actionPerformed` method. 
+- May want to move some of the logic of finding which security question to ask into `model>verification` rather than in the UI frames. 
